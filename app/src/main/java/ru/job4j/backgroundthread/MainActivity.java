@@ -3,6 +3,7 @@ package ru.job4j.backgroundthread;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         LoadImage loadImage = new LoadImage();
         new Thread(loadImage).start();
 
+
     }
 
     public void startThread(View view) {
@@ -59,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-
             while (count != times) {
                 if (count != 0) {
                     runOnUiThread(new Runnable() {
@@ -73,16 +74,8 @@ public class MainActivity extends AppCompatActivity {
                     stopThread = false;
                     break;
                 }
-                Log.d(TAG, "start thread " + count);
                 count++;
-                if (count == 10) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
 
-                        }
-                    });
-                }
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -95,29 +88,30 @@ public class MainActivity extends AppCompatActivity {
     private Bitmap loadImageFromNetwork(String url) {
         Bitmap bitmap = null;
         try {
-            bitmap=BitmapFactory.decodeStream((InputStream) new URL(url).getContent());
+            bitmap = BitmapFactory.decodeStream((InputStream) new URL(url).getContent());
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         return bitmap;
     }
 
     class LoadImage implements Runnable {
-
         @Override
         public void run() {
+            //final Bitmap bitmap = loadImageFromNetwork("https://static.boredpanda.com/blog/wp-content/uploads/2014/03/cute-smiling-animals-2.jpg");
+            //final Bitmap bitmap = loadImageFromNetwork("https://raw.githubusercontent.com/DmK78/TicTacToy/master/app/src/main/res/drawable/scr.PNG");
+            final Bitmap bitmap = loadImageFromNetwork("https://ichef.bbci.co.uk/news/660/cpsprodpb/42E2/production/_96522171_gettyimages-450864271.jpg");
+
+
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Bitmap bitmap = loadImageFromNetwork("https://static.boredpanda.com/blog/wp-content/uploads/2014/03/cute-smiling-animals-2.jpg ");
                     imageView.setImageBitmap(bitmap);
                     imageView.animate().alpha(1).setDuration(10000);
-                    Toast.makeText(getApplicationContext(), "The image was loaded", Toast.LENGTH_SHORT).show();
                 }
             });
-
         }
     }
+
 
 }
