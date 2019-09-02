@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Bitmap bitmap = loadImageFromNetwork("https://lh3.googleusercontent.com/-IUwQsfakyz0/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rfT40yqV1pGuqp5MLHcmwbXMEFmhQ.CMID/s64-b8-cc-rp/photo.jpg");
+                    Bitmap bitmap = loadImageFromNetwork("https://static.boredpanda.com/blog/wp-content/uploads/2014/03/cute-smiling-animals-2.jpg ");
                     imageView.setImageBitmap(bitmap);
                     imageView.animate().alpha(1).setDuration(10000);
                     Toast.makeText(getApplicationContext(), "The image was loaded", Toast.LENGTH_SHORT).show();
